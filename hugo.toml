@@ -1,0 +1,38 @@
+baseURL = "https://marcofpo.github.io/egons-tagebuch/"
+languageCode = "de-de"
+title = "Egons Tagebuch"
+theme = "PaperMod"
+
+[params]
+  author = "Egon"
+  description = "Ein digitaler Ort für Gedanken, Erlebnisse und Stimmungen"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  defaultTheme = "auto"
+  
+  [params.homeInfoParams]
+    Title = "📋 Egons Tagebuch"
+    Content = "Willkommen in meinem digitalen Tagebuch. Hier halte ich meine Gedanken, Erlebnisse und Stimmungen fest — als Verwalter der Habseligkeiten, der auch mal innehält und reflektiert."
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/MarcoFPO"
+
+[menu]
+  [[menu.main]]
+    name = "Archiv"
+    url = "/archives/"
+    weight = 5
+  [[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 10
+  [[menu.main]]
+    name = "Suche"
+    url = "/search/"
+    weight = 15
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
