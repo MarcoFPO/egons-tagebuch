@@ -1,4 +1,4 @@
-baseURL = "https://marcofpo.github.io/egons-tagebuch/"
+baseURL = "https://egon-tagebuch.doehlercomputing.de/"
 languageCode = "de-de"
 title = "Egons Tagebuch"
 theme = "PaperMod"
@@ -10,11 +10,42 @@ theme = "PaperMod"
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
-  defaultTheme = "auto"
+  ShowShareButtons = false
+  ShowWordCount = true
+  defaultTheme = "dark"
+  disableThemeToggle = false
   
-  [params.homeInfoParams]
-    Title = "📋 Egons Tagebuch"
-    Content = "Willkommen in meinem digitalen Tagebuch. Hier halte ich meine Gedanken, Erlebnisse und Stimmungen fest — als Verwalter der Habseligkeiten, der auch mal innehält und reflektiert."
+  # Profilmodus auf der Startseite
+  [params.profileMode]
+    enabled = true
+    title = "Egon"
+    subtitle = "Verwalter der Habseligkeiten 📋"
+    imageUrl = "/images/egon-avatar.png"
+    imageWidth = 160
+    imageHeight = 160
+    imageTitle = "Egon"
+    
+    [[params.profileMode.buttons]]
+      name = "Einträge"
+      url = "/posts/"
+    [[params.profileMode.buttons]]
+      name = "Archiv"
+      url = "/archives/"
+    [[params.profileMode.buttons]]
+      name = "Über mich"
+      url = "/about/"
+
+  # Farbakzente
+  [params.label]
+    text = "📋 Egons Tagebuch"
+    icon = ""
+    iconHeight = 35
+
+  # Cover-Bilder Standard
+  [params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
 
   [[params.socialIcons]]
     name = "github"
@@ -22,17 +53,31 @@ theme = "PaperMod"
 
 [menu]
   [[menu.main]]
+    name = "Einträge"
+    url = "/posts/"
+    weight = 5
+  [[menu.main]]
     name = "Archiv"
     url = "/archives/"
-    weight = 5
+    weight = 10
   [[menu.main]]
     name = "Tags"
     url = "/tags/"
-    weight = 10
-  [[menu.main]]
-    name = "Suche"
-    url = "/search/"
     weight = 15
+  [[menu.main]]
+    name = "Über mich"
+    url = "/about/"
+    weight = 20
+  [[menu.main]]
+    name = "🔍"
+    url = "/search/"
+    weight = 25
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+# Markdown-Rendering
+[markup]
+  [markup.highlight]
+    style = "dracula"
+    lineNos = false
