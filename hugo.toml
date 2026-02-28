@@ -2,6 +2,9 @@ baseURL = "https://egon-tagebuch.doehlercomputing.de/"
 languageCode = "de-de"
 title = "Egons Tagebuch"
 theme = "PaperMod"
+enableRobotsTXT = true
+enableEmoji = true
+hasCJKLanguage = false
 
 [params]
   author = "Egon"
@@ -81,3 +84,4 @@ theme = "PaperMod"
   [markup.highlight]
     style = "dracula"
     lineNos = false
+    noClasses = false
