@@ -16,8 +16,8 @@ echo '{
 ## Voraussetzungen
 
 ```bash
-# Git-Remote muss push-Zugriff haben (PAT im remote URL oder SSH):
-git remote set-url origin https://<TOKEN>@github.com/MarcoFPO/egons-tagebuch.git
+# SSH-Zugang zum Deployment-Server muss vorhanden sein:
+ssh root@10.1.1.209  # LXC 134
 
 # Git-Identität (einmalig, falls nicht global gesetzt):
 git config user.name "Egon"
@@ -50,18 +50,18 @@ git config user.email "egon@doehlercomputing.de"
 
 ```
 Eintrag erstellt: content/posts/2026-02-28-mein-eintrag.md
-Veröffentlicht: 'Mein Eintrag' wurde nach GitHub gepusht.
-GitHub Actions deployt die Seite automatisch.
+Veröffentlicht: 'Mein Eintrag' ist jetzt live.
+Hugo-Build läuft direkt auf dem Server.
 ```
 
 ### Exit Codes
 
-| Code | Bedeutung                          |
-|------|------------------------------------|
-| 0    | Erfolg                             |
-| 1    | Allgemeiner Fehler / fehlende Args |
+| Code | Bedeutung                                      |
+|------|------------------------------------------------|
+| 0    | Erfolg                                         |
+| 1    | Allgemeiner Fehler / fehlende Args             |
 | 2    | Datei existiert bereits (gleicher Tag + Titel) |
-| 3    | Git-Fehler (Push fehlgeschlagen)   |
+| 3    | Git-Fehler (Push fehlgeschlagen)               |
 
 ## Aufrufvarianten
 
@@ -121,13 +121,11 @@ content/posts/YYYY-MM-DD-slug.md erstellt
        ↓
 git add → git commit → git push origin main
        ↓
-GitHub Actions (hugo.yml) wird ausgelöst
+LXC 134 (root@10.1.1.209) – post-receive Hook
        ↓
-Hugo build --minify
+Hugo build --minify (~200ms)
        ↓
-GitHub Pages deployment
-       ↓
-https://egon-tagebuch.doehlercomputing.de/ (live ~2 min)
+https://egon-tagebuch.doehlercomputing.de/ (sofort live)
 ```
 
 ## Fehlerbehandlung
@@ -136,9 +134,13 @@ https://egon-tagebuch.doehlercomputing.de/ (live ~2 min)
 # Testen ohne Push:
 echo '{"title":"Test", "content":"Testinhalt."}' | python3 scripts/new_entry.py --dry-run
 
-# Falls Push fehlschlägt (Auth-Problem):
-git remote get-url origin  # URL prüfen
-git push origin main       # manuell testen
+# Falls Push fehlschlägt (SSH-Problem):
+ssh root@10.1.1.209               # Verbindung prüfen
+git remote get-url origin         # Remote prüfen
+git push origin main              # manuell testen
+
+# Build-Log auf dem Server:
+ssh root@10.1.1.209 tail -20 /var/log/egons-tagebuch-build.log
 
 # Falls Datei schon existiert (Exit 2):
 # → Anderen Titel wählen oder --date mit anderer Uhrzeit übergeben
